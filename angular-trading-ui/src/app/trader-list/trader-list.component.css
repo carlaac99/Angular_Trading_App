@@ -1,0 +1,13 @@
+
+  
+
+  /* Table itself */
+  table {
+    border-collapse: separate; /* Allows for border-spacing */
+    border-spacing: 10px; /* Space between cells */
+  }
+
+  ng-container{
+    padding: 50px; /* Increase body cell padding */
+    margin: 4px; /* Add space between cells */
+  }
