@@ -6,11 +6,11 @@ import { Observable, of} from 'rxjs';
 import {MatDialogModule, MatDialog} from '@angular/material/dialog';
 import { AddTraderComponent } from '../add-trader/add-trader.component';
 
-
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-trader-list',
   standalone: true,
-  imports: [MatTableModule,MatDialogModule],
+  imports: [MatTableModule,MatDialogModule,RouterModule],
   templateUrl: './trader-list.component.html',
   styleUrl: './trader-list.component.css'
 })
@@ -46,7 +46,8 @@ export class TraderListComponent {
       const dialogRef= this.dialog.open(AddTraderComponent);
 
       dialogRef.afterClosed().subscribe((result: Trader | null) => {
-        if (result) {
+        
+        if (result!=null) {
           // Add the new trader to the traders list if the dialog returned a valid result
           this._traderList.addTrader(result).subscribe(updatedListItem =>{
             this.dataSource.data= updatedListItem;

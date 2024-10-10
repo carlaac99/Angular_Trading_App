@@ -119,6 +119,7 @@ export class TraderListService {
   }]
 
   constructor() { }
+  trader: Trader | undefined;
 
     traders: Trader[] = this.traderList;
     getDataSource(): Observable<Trader []>{
@@ -153,6 +154,23 @@ export class TraderListService {
       return updatedTraders
 
      }
+
+     getTraderById(id: number): Trader | undefined {
+      // console.log("traders array",this.traders);
+      
+      // Ensure strict equality and correct type matching
+      this.trader = this.traders.find(trader => trader.id === id);
+      
+      if (this.trader !== undefined) {
+        console.log("Found match:", this.trader);
+        return this.trader;
+      } else {
+        console.log("No match found");
+        return undefined;
+      }
+      
+      
+    }
 
   
 }
