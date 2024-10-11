@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { TraderListService } from '../trader-list.service';
 import { Trader } from '../trader';
 import { CommonModule } from '@angular/common';
+import {MatDialogModule, MatDialog} from '@angular/material/dialog';
+import { DepositFundsComponent } from '../deposit-funds/deposit-funds.component';
 
 @Component({
   selector: 'app-trader-account',
@@ -16,12 +18,19 @@ export class TraderAccountComponent {
   traderList: TraderListService = inject(TraderListService);
   trader: Trader | undefined;
 
-  constructor(){
+  constructor(public dialog:MatDialog){
+
     const traderId= Number(this.route.snapshot.params['id'])
+
     console.log("trader id", traderId)
+    
     this.trader= this.traderList?.getTraderById(traderId)
     // console.log(this.trader)
 
+
+  }
+  openDialog(){
+    const dialogRef= this.dialog.open(DepositFundsComponent);
 
   }
 

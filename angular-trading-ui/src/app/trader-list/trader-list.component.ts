@@ -15,16 +15,20 @@ import { RouterModule } from '@angular/router';
   styleUrl: './trader-list.component.css'
 })
 export class TraderListComponent {
+
   traderList: Observable<Trader[]>=of([]);
-  traderListService: TraderListService = inject(TraderListService)
+
+  traderListService: TraderListService = inject(TraderListService);
+
   dataSource=new MatTableDataSource<Trader>();
+
   constructor(private _traderList:TraderListService,public dialog:MatDialog) {
     console.log("in tradelist component constructor")
 
-  
     this.traderList= this.traderListService.getDataSource()
 
     this.traderList.subscribe(data => {
+
       this.dataSource.data = data;  // Assign the data to the table's data source
     });
   }
@@ -33,9 +37,11 @@ export class TraderListComponent {
     console.log("ID", id)
     try{
       this._traderList.deleteTrader(id).subscribe(updatedList => {
+
         this.dataSource.data= updatedList;
       })
     } catch (err){
+
       console.log(err)
     }
   }
@@ -50,6 +56,7 @@ export class TraderListComponent {
         if (result!=null) {
           // Add the new trader to the traders list if the dialog returned a valid result
           this._traderList.addTrader(result).subscribe(updatedListItem =>{
+
             this.dataSource.data= updatedListItem;
           })
 

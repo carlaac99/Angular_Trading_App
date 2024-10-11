@@ -119,15 +119,16 @@ export class TraderListService {
   }]
 
   constructor() { }
-  trader: Trader | undefined;
+    trader: Trader | undefined;
 
     traders: Trader[] = this.traderList;
     getDataSource(): Observable<Trader []>{
       
       const traders$: Observable<Trader[]> = of(this.traders);
-      return traders$;
 
+      return traders$;
     }
+
     getColumns(): string[]{
       return ['First Name', 'Last Name',"Email",'DateOfBirth','Country','Actions']
     }
@@ -137,39 +138,43 @@ export class TraderListService {
       this.traders= this.traders.filter(trader => trader.id!==id)
 
       const updatedTraders = of(this.traders);
-     
-    
 
       return updatedTraders;
-
     }
-     addTrader(trader:Trader): Observable<Trader []>{
+
+    addTrader(trader:Trader): Observable<Trader []>{
 
       trader.id = this.traders.length + 1;
+
       trader.key = trader.id.toString();
 
       this.traders.push(trader)
 
       const updatedTraders = of(this.traders);
-      return updatedTraders
 
+      return updatedTraders
      }
 
      getTraderById(id: number): Trader | undefined {
-      // console.log("traders array",this.traders);
-      
-      // Ensure strict equality and correct type matching
+
       this.trader = this.traders.find(trader => trader.id === id);
       
       if (this.trader !== undefined) {
+
         console.log("Found match:", this.trader);
+
         return this.trader;
       } else {
+
         console.log("No match found");
+        
         return undefined;
       }
-      
-      
+    }
+
+    depositFunds(id: number,amount:number){
+
+      this.trader=this.traders.find(trader =>trader.id === id)
     }
 
   
