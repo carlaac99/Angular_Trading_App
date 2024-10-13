@@ -23,7 +23,7 @@ export class DepositFundsComponent {
 
   }
   onCancel(){
-    this.dialogRef.close()
+    this.dialogRef.close(0)
 
   }
 

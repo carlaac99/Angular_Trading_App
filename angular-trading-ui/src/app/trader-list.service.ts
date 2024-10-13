@@ -1,181 +1,112 @@
 import { Injectable } from '@angular/core';
 import { Trader } from './trader';
 import {  Observable,of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TraderListService {
+  private SERVER_URL: string = 'http://localhost:4100/'
+
+  constructor(private http: HttpClient){}
   
-  traderList: Trader [] = [{
-    "key": "1",
-    "id": 1,
-    "firstName": "Mike",
-    "lastName": "Spencer",
-    "dob": "1990-01-01",
-    "country": "Canada",
-    "email": "mike@test.com",
-    "amount": 0,
-    "actions": "<button (click)='deleteTrader'>Delete Trader</button>"
-  },
-  {
-      "key": "2",
-      "id": 2,
-      "firstName": "Hellen",
-      "lastName": "Miller",
-      "dob": "1990-01-01",
-      "country": "Austria",
-      "email": "hellen@test.com",
-      "actions": "<button (click)='deleteTrader'>Delete Trader</button>",
-      "amount": 0
-  },
-  {
-      "key": "3",
-      "id": 3,
-      "firstName": "Jack",
-      "lastName": "Reed",
-      "dob": "1990-01-01",
-      "country": "United Kingdom",
-      "email": "jack@test.com",
-      "actions": "<button (click)='deleteTrader'>Delete Trader</button>",
-      "amount": 0
-  },
-  {
-      "key": "4",
-      "id": 4,
-      "firstName": "Robert",
-      "lastName": "Howard",
-      "dob": "1990-01-01",
-      "country": "Switzerland",
-      "email": "robert@test.com",
-      "actions": "<button (click)='deleteTrader'>Delete Trader</button>",
-      "amount": 0
-  },
-  {
-      "key": "5",
-      "id": 5,
-      "firstName": "Dustin",
-      "lastName": "Wise",
-      "dob": "1990-01-01",
-      "country": "Russia",
-      "email": "dustin@test.com",
-      "actions": "<button (click)='deleteTrader'>Delete Trader</button>",
-      "amount": 0
-  },
-  {
-      "key": "6",
-      "id": 6,
-      "firstName": "Sergio",
-      "lastName": "Chung",
-      "dob": "1990-01-01",
-      "country": "China",
-      "email": "sergio@test.com",
-      "actions": "<button (click)='deleteTrader'>Delete Trader</button>",
-      "amount": 0
-  },
-  {
-      "key": "7",
-      "id": 7,
-      "firstName": "Magnolia",
-      "lastName": "Cortez",
-      "dob": "1990-01-01",
-      "country": "Malaysia",
-      "email": "magnolia@test.com",
-      "actions": "<button (click)='deleteTrader'>Delete Trader</button>",
-      "amount": 0
-  },
-  {
-      "key": "8",
-      "id": 8,
-      "firstName": "Jeremy",
-      "lastName": "Alvarez",
-      "dob": "1990-01-01",
-      "country": "Mexico",
-      "email": "jeremy@test.com",
-      "actions": "<button (click)='deleteTrader'>Delete Trader</button>",
-      "amount": 0
-  },
-  {
-      "key": "9",
-      "id": 9,
-      "firstName": "Valerie",
-      "lastName": "Lee",
-      "dob": "1990-01-01",
-      "country": "Turkey",
-      "email": "valerie@test.com",
-      "actions": "<button (click)='deleteTrader'>Delete Trader</button>",
-      "amount": 0
-  },
-  {
-      "key": "10",
-      "id": 10,
-      "firstName": "Lydia",
-      "lastName": "Zeena",
-      "dob": "1990-01-01",
-      "country": "Morocco",
-      "email": "hellen@test.com",
-      "actions": "<button (click)='deleteTrader'>Delete Trader</button>",
-      "amount": 0
-  }]
+  trader: Trader | undefined;
 
-  constructor() { }
-    trader: Trader | undefined;
+  // traders: Trader[] ;
 
-    traders: Trader[] = this.traderList;
-    getDataSource(): Observable<Trader []>{
+  getDataSource(): Observable<Trader[]>{
+    console.log("Making API call to get traders...");
+
+    return this.http.get<Trader[]>(this.SERVER_URL)
+  }
+
+  getColumns(): string[]{
+    return ['First Name', 'Last Name',"Email",'DateOfBirth','Country','Actions']
+  }
+
+  deleteTrader(id:number): Observable<Trader []>{
+
+    this.traders= this.traders.filter(trader => trader.id!==id)
+
+    const updatedTraders = of(this.traders);
+
+    return updatedTraders;
+  }
+
+  addTrader(trader:Trader): Observable<Trader []>{
+
+    trader.id = this.traders.length + 1;
+
+    trader.key = trader.id.toString();
+
+    this.traders.push(trader)
+
+    const updatedTraders = of(this.traders);
+
+    return updatedTraders
+  }
+
+  getTraderById(id: number):  Observable<Trader[]> {
+
+
+
+    // this.trader = this.traders.find(trader => trader.id === id);
       
-      const traders$: Observable<Trader[]> = of(this.traders);
+    // if (this.trader !== undefined) {
 
-      return traders$;
-    }
+    //   console.log("Found match:", this.trader);
 
-    getColumns(): string[]{
-      return ['First Name', 'Last Name',"Email",'DateOfBirth','Country','Actions']
-    }
+    //   return this.trader;
+    // } else {
 
-    deleteTrader(id:number): Observable<Trader []>{
+    //   console.log("No match found");
 
-      this.traders= this.traders.filter(trader => trader.id!==id)
+    //   return undefined;
+    // }
 
-      const updatedTraders = of(this.traders);
+    return this.http.get<Trader[]>(this.SERVER_URL + )
+  }
 
-      return updatedTraders;
-    }
+  depositFunds(id: number,amount:number): Trader | undefined {
 
-    addTrader(trader:Trader): Observable<Trader []>{
-
-      trader.id = this.traders.length + 1;
-
-      trader.key = trader.id.toString();
-
-      this.traders.push(trader)
-
-      const updatedTraders = of(this.traders);
-
-      return updatedTraders
-     }
-
-     getTraderById(id: number): Trader | undefined {
-
-      this.trader = this.traders.find(trader => trader.id === id);
-      
-      if (this.trader !== undefined) {
-
-        console.log("Found match:", this.trader);
-
-        return this.trader;
-      } else {
-
-        console.log("No match found");
+    var trader;
+    for (let i=0; i <this.traders.length;i++){
         
-        return undefined;
+      if (this.traders[i].id === id){
+
+        this.traders[i].amount+=amount
+
+        console.log("amount:",this.traders[i].amount)
+
+        trader= this.traders[i]
+
+        break;
       }
     }
+    return trader;
 
-    depositFunds(id: number,amount:number){
+  }
 
-      this.trader=this.traders.find(trader =>trader.id === id)
+  withdrawFunds(id: number,amount:number): Trader | undefined {
+
+    var trader;
+    for (let i=0; i <this.traders.length;i++){
+        
+      if (this.traders[i].id === id){
+
+        this.traders[i].amount-=amount
+
+        console.log("amount:",this.traders[i].amount)
+
+        trader= this.traders[i]
+
+        break;
+      }
     }
+    return trader;
+
+  }
 
   
 }

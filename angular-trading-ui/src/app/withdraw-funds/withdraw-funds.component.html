@@ -1,1 +1,8 @@
-<p>withdraw-funds works!</p>
+<form [formGroup]="withdrawForm" (submit)="submitWithdrawl()">
+    <label for="amount"> Amount to Withdraw </label>
+    <input id="amount" type="text" formControlName="amount">
+
+    <button type="submit"> Withdraw Amount </button>
+    <button type="button" (click)="onCancel()"> Cancel </button>
+
+</form>

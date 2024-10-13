@@ -1,42 +1,59 @@
-import { Component,inject } from '@angular/core';
+import { Component,inject, OnInit } from '@angular/core';
 import { Trader } from '../trader';
 import { TraderListService } from '../trader-list.service';
 import {MatTableDataSource, MatTableModule,} from '@angular/material/table';
 import { Observable, of} from 'rxjs';
 import {MatDialogModule, MatDialog} from '@angular/material/dialog';
 import { AddTraderComponent } from '../add-trader/add-trader.component';
-
+import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'app-trader-list',
   standalone: true,
-  imports: [MatTableModule,MatDialogModule,RouterModule],
+  imports: [MatTableModule,MatDialogModule,RouterModule,CommonModule],
   templateUrl: './trader-list.component.html',
   styleUrl: './trader-list.component.css'
 })
-export class TraderListComponent {
+export class TraderListComponent{
 
   traderList: Observable<Trader[]>=of([]);
 
   traderListService: TraderListService = inject(TraderListService);
 
-  dataSource=new MatTableDataSource<Trader>();
+  dataSource : MatTableDataSource<Trader> = new MatTableDataSource<Trader>(); 
 
-  constructor(private _traderList:TraderListService,public dialog:MatDialog) {
-    console.log("in tradelist component constructor")
+  loading = true;
 
+  constructor(public dialog:MatDialog,private cdr: ChangeDetectorRef) {}
+
+  ngOnInit(){
     this.traderList= this.traderListService.getDataSource()
 
-    this.traderList.subscribe(data => {
+    this.traderListService.getDataSource().subscribe(data => {
+      this.dataSource = new MatTableDataSource<Trader>(data)
+      this.cdr.detectChanges();
+      
 
-      this.dataSource.data = data;  // Assign the data to the table's data source
+      // this.dataSource.data = data;  // Assign the data to the table's data source
+      console.log("Data received in trader-list", data);  // Logs the received data
+      console.log("Updated datasource in trader-list", this.dataSource.data);
+      this.loading = false
+     
+
+    },(error) =>{
+      console.error('Error fetching data:', error);
+      this.loading = false; // Ensure loading is also set to false on error
+
     });
+  
+
   }
 
   deleteTrader(event:Event,id:number): void{
     console.log("ID", id)
     try{
-      this._traderList.deleteTrader(id).subscribe(updatedList => {
+      this.traderListService.deleteTrader(id).subscribe(updatedList => {
 
         this.dataSource.data= updatedList;
       })
@@ -55,7 +72,7 @@ export class TraderListComponent {
         
         if (result!=null) {
           // Add the new trader to the traders list if the dialog returned a valid result
-          this._traderList.addTrader(result).subscribe(updatedListItem =>{
+          this.traderListService.addTrader(result).subscribe(updatedListItem =>{
 
             this.dataSource.data= updatedListItem;
           })
