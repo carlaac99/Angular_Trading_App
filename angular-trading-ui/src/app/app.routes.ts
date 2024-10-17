@@ -4,7 +4,7 @@ import { TraderAccountComponent } from './trader-account/trader-account.componen
 
 export const routes: Routes = [
     {path:'dashboard', component:DashboardComponent},
-    {path:'', component:DashboardComponent},
-    {path:'trader-account/:id', component:TraderAccountComponent}
+    {path:'', component:DashboardComponent, pathMatch: 'full'},
+    {path:'trader-account/:id', component:TraderAccountComponent,runGuardsAndResolvers: 'paramsOrQueryParamsChange'}
 
 ];

@@ -1,19 +1,19 @@
 <h1>Trader Account</h1>
-<div class="account-details">
+<div class="account-details" *ngIf="trader$ | async as trader ; else loading">
 
-    <div class="trader-details">
+    <div class="trader-details" >
         <div class="info">
             <p>First Name</p>
-            <a>{{trader?.firstName}}</a>
+            <a>{{trader.firstName}}</a>
         </div>
         <div class="info">
             <p>Last Name</p>
-            <a>{{trader?.lastName}}</a>
+            <a>{{trader.lastName}}</a>
         </div>
 
         <div class="info">
             <p>Email</p>
-            <a>{{trader?.email}}</a>
+            <a>{{trader.email}}</a>
 
         </div>
         <div class="info">
@@ -23,26 +23,26 @@
 
         <div class="info">
             <p>Date of Birth</p>
-            <a>{{trader?.dob}}</a>
+            <a>{{trader.dob}}</a>
         </div>
         <div class="info">
             <p>Country</p>
-            <a>{{trader?.country}}</a>
-
+            <a>{{trader.country}}</a>
         </div>
 
     </div>
+
     <div class="amount-details">
         <p>Amount</p>
-        <a>{{trader?.amount}}$</a>
-
+        <a>{{trader.amount}}$</a>
     </div>
+
     <div class="transactions">
-        
         <button type="button" (click)="openDialogDeposit()">Deposit Funds</button>
         <button type="button" (click)="openDialogWithdraw()">Withdraw Funds</button>
-
     </div>
 
 </div>
-
+<ng-template #loading>
+    <p>Loading...</p>
+  </ng-template>

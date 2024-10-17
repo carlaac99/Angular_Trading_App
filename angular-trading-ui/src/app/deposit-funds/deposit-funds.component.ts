@@ -19,10 +19,12 @@ export class DepositFundsComponent {
 
   });
   submitDeposit(){
+    console.log("submitDeposit")
     this.dialogRef.close(this.depositForm.get("amount")?.value)
 
   }
   onCancel(){
+    console.log("onCancel")
     this.dialogRef.close(0)
 
   }
