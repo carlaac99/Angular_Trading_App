@@ -1,4 +1,4 @@
-import { Component,inject, OnInit } from '@angular/core';
+import { Component,inject} from '@angular/core';
 import { Trader } from '../trader';
 import { TraderListService } from '../trader-list.service';
 import {MatTableDataSource, MatTableModule,} from '@angular/material/table';
@@ -7,7 +7,6 @@ import {MatDialogModule, MatDialog} from '@angular/material/dialog';
 import { AddTraderComponent } from '../add-trader/add-trader.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -18,8 +17,6 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './trader-list.component.css'
 })
 export class TraderListComponent{
-
-  traderList: Observable<Trader[]>=of([]);
 
   traderListService: TraderListService = inject(TraderListService);
   route :ActivatedRoute = inject(ActivatedRoute)

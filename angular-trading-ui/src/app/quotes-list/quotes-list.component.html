@@ -1,1 +1,45 @@
-<p>quotes-list works!</p>
+<!-- *ngIf="dataSource && dataSource.data.length"-->
+<table mat-table [dataSource]="dataSource" >
+      <!-- first name Definition -->
+    <ng-container matColumnDef="firstName">
+        <th mat-header-cell *matHeaderCellDef> Symbol </th>
+        <td mat-cell *matCellDef="let quote"> {{quote.symbol }}</td>
+    </ng-container>
+  
+        <!-- last name Definition -->
+    <ng-container matColumnDef="lastName">
+        <th mat-header-cell *matHeaderCellDef> High</th>
+        <td mat-cell *matCellDef="let quote"> {{quote.high}} </td>
+    </ng-container>
+  
+        <!-- email Definition -->
+    <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Low</th>
+        <td mat-cell *matCellDef="let quote"> {{quote.low}} </td>
+    </ng-container>
+      
+        <!-- dob -->
+    <ng-container matColumnDef="dob">
+        <th mat-header-cell *matHeaderCellDef>lastPrice</th>
+        <td mat-cell *matCellDef="let quote"> {{quote.lastPrice}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="country">
+          <th mat-header-cell *matHeaderCellDef> Volume</th>
+          <td mat-cell *matCellDef="let quote"> {{quote.volume}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="latestTradingDay">
+        <th mat-header-cell *matHeaderCellDef>latest Trading Day</th>
+        <td mat-cell *matCellDef="let quote"> {{quote.latestTradingDay}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="previousClose">
+        <th mat-header-cell *matHeaderCellDef>Previous Close</th>
+        <td mat-cell *matCellDef="let quote"> {{quote.previousClose}} </td>
+    </ng-container>
+ 
+    <!-- Header and Row Declarations -->
+    <tr mat-header-row *matHeaderRowDef="['firstName','lastName','email','dob','country','latestTradingDay','previousClose']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['firstName','lastName','email','dob','country','latestTradingDay','previousClose'];"></tr>
+</table>
