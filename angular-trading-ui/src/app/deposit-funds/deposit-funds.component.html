@@ -1,0 +1,8 @@
+<form [formGroup]="depositForm" (submit)="submitDeposit()">
+    <label for="amount">Amount to Deposit</label>
+    <input id="amount" type="text" formControlName="amount">
+
+    <button type="submit" >Deposit Amount</button>
+    <button type="button" (click)="onCancel()">Cancel</button>
+
+</form>

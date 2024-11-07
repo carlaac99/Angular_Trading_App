@@ -1,0 +1,28 @@
+<div class="form-border">
+<h2>Add New Trader</h2>
+
+<!-- Add form elements like input fields here -->
+<form [formGroup]="traderForm"  (ngSubmit)="onSubmit()">
+  <label>First Name</label>
+  <input type="text" placeholder="John" formControlName="firstName"/><br>
+
+  <label>Last Name</label>
+  <input type="text" placeholder="Doe" formControlName="lastName"/><br>
+
+  <label>Email</label>
+  <input type="email" placeholder="john.doe@gmail.com"  formControlName="email"/><br>
+
+  <label>Country</label>
+  <input type="text" placeholder="Canada" formControlName="country"/><br>
+
+  <label>Date of Birth</label>
+  <input type="Date" formControlName="dob" /><br>
+
+  <!-- You can add more fields as required -->
+  <div class="dialog-actions">
+    <button mat-button type="button" (click)="onNoClick()">Cancel</button>
+    <button mat-button type="submit">Save</button>
+  </div>
+</form>
+
+</div>

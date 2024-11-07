@@ -1,0 +1,51 @@
+
+.account-details{
+    width: 100%
+   }
+
+.transactions{
+    float:right;    
+    height:100%;
+    margin-right: 50%;
+    
+}
+.trader-details{
+    background-color: rgb(238, 221, 221);
+    width:40qvh;
+    height:100%;
+    float:left;
+
+    
+}
+.amount-details{
+    background-color: rgb(238, 221, 221);
+
+    display: inline-block;
+    width:300px;
+    margin-left: 60px;
+    padding-bottom: 5px;
+    text-align: center;
+    font-size:40px;
+    height:397px;
+}
+a{
+    font-weight:bold;
+}
+.info{
+    display: inline-block;
+    width:32%;
+    height:40%;
+    /* border: 5px solid #000000; */
+    margin:5px;
+    padding:25px;
+    overflow:hidden;
+    word-wrap: break-word;
+    text-align: center;
+}
+h1{
+    margin-bottom: 50px;
+}
+button{
+    height:35px;
+    margin-right: 10px;
+}

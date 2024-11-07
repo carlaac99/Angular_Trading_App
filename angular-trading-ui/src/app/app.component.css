@@ -1,0 +1,43 @@
+body{
+    background-color:#c0cde0;
+    display:flex;
+    width: 100vw;
+    flex-direction: row;
+}
+
+app-navbar{
+    width: 100vh;
+    color:rgb(0, 0, 0);
+    position:fixed;
+    top: 0;
+    left: 0;
+    width: 200px; /* Set navbar width */
+    height: 100%; /* Full height of the viewport */
+    background-color: #333; /* Background color for the navbar */
+    padding: 20px;
+    box-sizing: border-box;
+    color: white; 
+    background-image:linear-gradient(180deg,#172437,6.67%,#030d1d)
+}
+.routes{
+    width: 90%;
+    padding: 2%;
+    margin: 0 auto;
+    
+}
+.app-container {
+    display: flex;
+    min-height: 100vh; /* Full viewport height */
+  }
+  .routes {
+    margin-left: 250px; /* Leave space for the fixed navbar */
+    padding: 20px;
+    width: calc(100% - 250px); /* Adjust content width */
+    overflow-y: auto; /* Allow scrolling if content is too long */
+  }
+  
+  /* Optional: Add some styling for content inside the router-outlet */
+  .routes h1 {
+    font-size: 24px;
+    color: #333; /* Change this color as needed */
+  }
